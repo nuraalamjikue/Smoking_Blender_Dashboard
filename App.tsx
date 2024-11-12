@@ -1,118 +1,163 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import {NavigationContainer, RouteProp} from '@react-navigation/native';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+  createNativeStackNavigator,
+  NativeStackNavigationOptions,
+} from '@react-navigation/native-stack';
+import Toast from 'react-native-toast-message';
+import AuthLoadingScreen from './src/Login/AuthLoadingScreen';
+import LoginScreen from './src/Login/LoginScreen';
+import CustomMaterialMenu from './src/Component/menu/CustomMaterialMenu';
+import VersionCheck from './src/Component/Version/VersionCheck';
+import DownloadScreen from './src/Component/Download/DownloadScreen';
+import BkashPaymentGetway from './src/Bkash/BkashPaymentGetway';
+import PaymentCancel from './src/Bkash/PaymentCancel';
+import PaymentSuccess from './src/Bkash/PaymentSuccess';
+import StockEntry from './src/Stock/StockEntry';
+import Employee_salary_wise_payment from './src/Payment_with_salary/Employee_salary_wise_payment';
+import Dashboard from './src/Dashboard/Dashboard';
+import SwipeList from './src/SwipeListView/SwipeList';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+type RootStackParamList = {
+  VersionCheck: undefined;
+  AuthLoadingScreen: undefined;
+  DownloadScreen: undefined;
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+  LoginScreen: undefined;
+  OnlineCigaretteBuyAndPaymentOnline: undefined;
+  headerMode: any;
+  BkashPaymentGetway: undefined;
+  PaymentCancel: undefined;
+  PaymentSuccess: undefined;
+  StockEntry: undefined;
+  Employee_salary_wise_payment: undefined;
+  Bkash_Payment_System: undefined;
+  Notification: undefined;
+  ReceiveNotification: undefined;
+  Dashboard: undefined;
+  SwipeList: undefined;
+};
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const App: React.FC = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={({route, navigation}) => ({
+          // headerRight: () => (
+          //   <CustomMaterialMenu
+          //     menuText="Menu"
+          //     textStyle={{color: 'white'}}
+          //     navigation={navigation}
+          //     route={route}
+          //     isIcon={true}
+          //   />
+          // ),
+          headerStyle: {
+            backgroundColor: '#0078D7', // Set Header color
+            opacity: 0.8,
           },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
+
+          statusBarColor: '#0078D7',
+          headerTintColor: '#fff', // Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', // Set Header text style
           },
-        ]}>
-        {children}
-      </Text>
-    </View>
+        })}>
+        <Stack.Screen
+          name="VersionCheck"
+          component={VersionCheck}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="AuthLoadingScreen"
+          component={AuthLoadingScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="DownloadScreen"
+          component={DownloadScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="SwipeList"
+          component={SwipeList}
+          options={{headerShown: false}}
+        />
+
+        {/* ------------------------------------------------------------------------ */}
+        <Stack.Screen
+          name="BkashPaymentGetway"
+          component={BkashPaymentGetway}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          // options={{
+          //   headerShown: false,
+          //   headerTitle: 'Login',
+          //   headerTintColor: '#ffffff',
+          //   headerMode: 'none',
+          //   navigationOptions: {
+          //     headerVisible: false,
+          //   },
+          //   headerTitleStyle: {
+          //     fontSize: 15,
+          //   },
+          // }}
+        />
+
+        <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="PaymentCancel"
+          component={PaymentCancel}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="PaymentSuccess"
+          component={PaymentSuccess}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="StockEntry"
+          component={StockEntry}
+          options={{
+            headerShown: true,
+          }}
+        />
+
+        <Stack.Screen
+          name="Employee_salary_wise_payment"
+          component={Employee_salary_wise_payment}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+      <Toast />
+    </NavigationContainer>
   );
-}
-
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
